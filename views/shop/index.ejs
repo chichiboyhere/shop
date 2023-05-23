@@ -1,0 +1,73 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body>
+    <!-- I'm adding this to test sticky navbar -->
+    <div class="header">
+        <div class="contents" style="position: relative;">
+            <div class="header-content">
+                <div class="shop">Shop</div>
+                <div class="fine">Fine</div>
+            </div> 
+            <p style="font-style: italic; text-align: center; background-color: #f1f1f1;">... best deal you can find anywhere!</p>
+        </div>
+        
+    </div>
+    
+    <!-- end -->
+    <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <% if (prods.length > 0) { %>
+            <div class="grid">
+                <% for (let product of prods) { %>
+                    <article class="card product-item">
+                        <header class="card__header">
+                            <h1 class="product__title"><%= product.title %></h1>
+                        </header>
+                        <div class="card__image">
+                            <img src="/<%= product.imageUrl %>"
+                                alt="<%= product.title %>">
+                        </div>
+                        <div class="card__content">
+                            <h2 class="product__price">$<%= product.price %></h2>
+                            <p class="product__description"><%= product.description %></p>
+                        </div>
+                        <div class="card__actions">
+                            <a href="/products/<%= product._id %>" class="btn">Details</a>
+                            <% if (isAuthenticated) { %>
+                                <%- include('../includes/add-to-cart.ejs', {product: product}) %>
+                            <% } %>
+                        </div>
+                    </article>
+                <% } %>
+            </div>
+        <% } else { %>
+            <h1>No Products Found!</h1>
+        <% } %>
+        <script>
+                        
+            // Added this for sticky navbar sake
+            window.onscroll = function() {myFunction()};
+
+            //var navbar = document.getElementById("navbar");
+            var navbar = document.querySelector(".main-header");
+            var sticky = navbar.offsetTop;
+
+            function myFunction() {
+            if (window.pageYOffset >= sticky) {
+                navbar.classList.add("sticky");
+                document.getElementById("logo-disappear").setAttribute("id", "logo-appear");
+                document.getElementById("logo-appear").style.display="block"
+                //const menuToggle = document.querySelector('#side-menu-toggle');   
+                
+                } else {
+                navbar.classList.remove("sticky");
+                document.getElementById("logo-appear").setAttribute("id", "logo-disappear");
+                document.getElementById("logo-disappear").style.display="block"
+            }
+            }
+        </script>
+    </main>
+<%- include('../includes/end.ejs') %>
