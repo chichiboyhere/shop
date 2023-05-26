@@ -5,7 +5,7 @@
 <body>
     <!-- I'm adding this to test sticky navbar -->
     <div class="header">
-        <div class="contents" style="position: relative;">
+        <div class="contents" style="position: relative" >
             <div class="header-content">
                 <div class="shop">Shop</div>
                 <div class="fine">Fine</div>
@@ -15,7 +15,7 @@
         
     </div>
     
-    <!-- end -->
+    <!-- end style="position: relative;"-->
     <%- include('../includes/navigation.ejs') %>
 
     <main>
@@ -43,6 +43,7 @@
                     </article>
                 <% } %>
             </div>
+            <%- include('../includes/pagination.ejs', {currentPage: currentPage, nextPage: nextPage, previousPage: previousPage, lastPage: lastPage, hasNextPage: hasNextPage, hasPreviousPage: hasPreviousPage}) %>
         <% } else { %>
             <h1>No Products Found!</h1>
         <% } %>
